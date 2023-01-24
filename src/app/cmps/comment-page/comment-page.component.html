@@ -1,6 +1,4 @@
 <section class="comment=page">
-
-
-<app-add-comment></app-add-comment>
-
+  <app-comment-list (onRemove)="onRemoveComment($event)" [comments]="comments$ | async"></app-comment-list>
+  <app-add-comment></app-add-comment>
 </section>

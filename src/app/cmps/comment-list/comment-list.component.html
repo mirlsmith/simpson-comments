@@ -1,0 +1,3 @@
+<section class="comment-list">
+    <app-comment-preview (onRemove)="onRemove.emit($event)" *ngFor="let comment of comments; index as idx" [comment]="comment"></app-comment-preview>
+</section>
