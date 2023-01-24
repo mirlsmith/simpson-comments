@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Comment } from 'src/app/models/comment';
 import { User } from 'src/app/models/user';
+import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,21 +13,21 @@ import { UserService } from 'src/app/services/user.service';
 export class CommentPreviewComponent implements OnInit {
 
   constructor(
-    private userService:UserService
+    private userService:UserService,
+    private commentService: CommentService
   ){}
 
   @Input() comment!: Comment
   @Output() onRemove = new EventEmitter<number>()
 
-  onRemoveComment(ev: MouseEvent){
-    ev.stopPropagation()
-    this.onRemove.emit(this.comment.id)
-  }
+  
 
   commentOwner$!: Observable<User>
 
   ownerName = ''
   createdAt = ''
+  commentReplies: Comment[] = []
+  canEdit = false
 
   
   ngOnInit(): void {
@@ -34,6 +35,22 @@ export class CommentPreviewComponent implements OnInit {
     this.commentOwner$.subscribe(
       user => this.ownerName = user.displayName
     )
+    this.commentReplies = this.commentService.getReplies(this.comment.id)
+  }
+  
+  onRemoveComment(ev: MouseEvent){
+    ev.stopPropagation()
+    this.onRemove.emit(this.comment.id)
+  }
+
+  onEditComment(ev: MouseEvent){
+    ev.stopPropagation()
+    if (this.canEdit) {
+      this.commentService.save(this.comment).subscribe(
+        cmnt => this.comment = cmnt
+      )
+    }
+    this.canEdit = !this.canEdit
   }
 
 }

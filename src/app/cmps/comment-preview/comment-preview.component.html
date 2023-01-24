@@ -1,23 +1,26 @@
 <section>
     <!-- <div *ngIf="!comment.parentCommentId" class="comment-preview flex align-center"> -->
-    <div class="comment-preview flex align-center space-between">
-        <div class="info">
-            <h3>{{ownerName}}</h3>
-            <h4>{{comment.createdAt | timeAgo}}</h4>
+    <div *ngIf="!comment.deletedAt" class="comment-preview flex align-center space-between">
+        <div class="info flex align-center">
+            <div>
+                <img src="../../../assets/imgs/users/{{comment.ownerId}}.jpg" alt="">
+            </div>
+            <div class="flex column">
+                <p>{{ownerName}}</p>
+                <p>{{comment.createdAt | timeAgo}}</p>
+            </div>
         </div>
-        <div class="text">
-            <p>{{comment.txt}}</p>
+        <div class="text" [attr.contenteditable]="canEdit">
+            <p *ngIf="!canEdit">{{comment.txt}}</p>
+            <textarea *ngIf="canEdit" [(ngModel)]="comment.txt">{{comment.txt}}</textarea>
         </div>
         <div class="actions flex column">
-            <button>Delete comment</button>
-            <button>Edit comment</button>
-
+            <button (click)="onRemoveComment($event)">Delete comment</button>
+            <button (click)="onEditComment($event)">{{canEdit? 'Save' : 'Edit'}} comment</button>
         </div>
     </div>
 
-    <div class="comment-replies">
-        <!-- <app-comment-preview *ngFor="let comment of commentReplies"></app-comment-preview> -->
-        <!-- <app-comment-list [comments]="commentReplies"></app-comment-list> -->
-
+    <div *ngFor="let comment of commentReplies" class="comment-replies">
+        <app-comment-preview [comment]="comment" ></app-comment-preview>
     </div>
 </section>
