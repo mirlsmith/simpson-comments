@@ -1,10 +1,9 @@
-<div class="add-comment">
+<div class="add-comment flex">
     <div class="user-img">
-        <img src="" alt="user-avatar">
-        {{selectedUser.displayName}}
+        <img src="../../../assets/imgs/users/{{selectedUser.id}}.jpg" alt="user-avatar">
     </div>
-    <form #form="ngForm" class="comment-form" (ngSubmit)="onAddComment(form)">
-        <input [(ngModel)]="text" type="text" minlength="1" name="text" placeholder="Please add your comment here">
+    <form #form="ngForm" class="comment-form flex" (ngSubmit)="onAddComment(form)">
+        <textarea [(ngModel)]="text" minlength="1" name="text" placeholder="Please add your comment here"></textarea>
         <button class="add-message-action">Submit</button>
     </form>
 </div>

@@ -1,21 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
 
+// declare var require: any
 @Component({
   selector: 'app-add-comment',
   templateUrl: './add-comment.component.html',
   styleUrls: ['./add-comment.component.scss']
 })
-export class AddCommentComponent implements OnInit {
+export class AddCommentComponent implements OnInit, OnDestroy {
 
   
   userSubscription!: Subscription
   selectedUser!: User
   text = ''
+  // userImg = require(`../../../assets/imgs/users/${this.selectedUser.id}.jpg`)
 
   constructor(
     private commentService: CommentService,
@@ -38,6 +40,10 @@ export class AddCommentComponent implements OnInit {
     // this.reply ? this.commentService.saveAsReply(msg, this.parentMsg) :  this.commentService.save(msg)
     console.log('text', this.text);
     form.reset()
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe()
   }
 
 }
