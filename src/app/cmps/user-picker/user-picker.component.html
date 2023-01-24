@@ -1,0 +1,8 @@
+<div class="form-group">
+  <label for="user">Choose a user</label>
+  <select [(ngModel)]="selectedUser" class="select-user-form" id="user" required>
+    <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+  </select>
+</div>
+<p>Posting as: <span>{{selectedUser}}</span> </p>
+
