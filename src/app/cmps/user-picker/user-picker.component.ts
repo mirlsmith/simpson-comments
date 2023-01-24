@@ -12,9 +12,13 @@ export class UserPickerComponent {
     private userService: UserService
   ){}
 
-  selectedUser = this.userService.selectedUser.displayName
+  selectedUserName = this.userService.selectedUser.displayName
 
   users = this.userService.getUserNames()
+
+  updateSelectedUser() {
+    this.userService.setSelectedUser(this.selectedUserName)
+  }
 
 
 
