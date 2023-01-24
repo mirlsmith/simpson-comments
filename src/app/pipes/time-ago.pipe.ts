@@ -6,12 +6,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TimeAgoPipe implements PipeTransform {
   transform(value: any, args?: any): any {
     if (value) {
+      console.log('value recieved in pipe', value);
       const dateObj = new Date(value)
+      console.log('date now', dateObj);
       const secs = Math.floor((+new Date() - +dateObj) / 1000);
+      console.log('secs', secs);
       if (secs < 5) // less than 5 seconds ago
         return 'Just now';
       if (secs > 3600*3) // more than 3 hours ago displays MM/DD/YYYY
-        return `${(dateObj.getMonth()+1).toString().padStart(2,'0')}/${dateObj.getDate().toString().padStart(2,'0')}/${dateObj.getFullYear()}`
+        return `${dateObj.getDate().toString().padStart(2,'0')}/${(dateObj.getMonth()+1).toString().padStart(2,'0')}/${dateObj.getFullYear()}`
       const intervals: { [key: string]: number } = {
         'hour': 3600,
         'minute': 60,
