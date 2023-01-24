@@ -19,6 +19,10 @@ export class UserService {
 
   private usersDB: User[] = this.loadUsers()
 
+  getById(userId: number){
+    let user = this.usersDB.find(user => user.id === userId)
+    return user ? of({...user}) : of()
+  }
 
   getUserNames(){
     return this.usersDB.map(user => user.displayName)
