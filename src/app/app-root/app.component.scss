@@ -1,0 +1,28 @@
+// :host {
+//     display: flex;
+//     justify-content: center;
+// }
+
+.main-layout {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 40px 1fr 40px;
+    &>*{
+        grid-column-start: 2;
+        justify-self: center;
+    }
+    
+
+    // @media screen and (max-width: 1100px) {
+    //     grid-template-columns: minmax(90px, 450px) 600px 320px;
+    // }
+
+    @media screen and (min-width: 700px) {
+        grid-template-columns: 80px 1fr 80px;
+    }
+
+    // @media screen and (max-width: 700px) {
+    //     grid-template-columns: 70px 1fr;
+    //     width: 100%;
+    // }
+}
