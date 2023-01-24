@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { USERS } from 'src/app/data/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-picker',
@@ -7,8 +7,15 @@ import { USERS } from 'src/app/data/user';
   styleUrls: ['./user-picker.component.scss']
 })
 export class UserPickerComponent {
-  selectedUser = ''
 
-  users = USERS.map(user => user.displayName)
+  constructor(
+    private userService: UserService
+  ){}
+
+  selectedUser = this.userService.selectedUser.displayName
+
+  users = this.userService.getUserNames()
+
+
 
 }
