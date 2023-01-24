@@ -6,24 +6,22 @@ import { CommentService } from 'src/app/services/comment.service';
 @Component({
   selector: 'app-comment-page',
   templateUrl: './comment-page.component.html',
-  styleUrls: ['./comment-page.component.scss']
+  styleUrls: ['./comment-page.component.scss'],
 })
 export class CommentPageComponent implements OnInit {
+  constructor(private commentService: CommentService) {}
 
-  constructor(
-    private commentService: CommentService
-  ){}
-
-  comments!: Comment[]
-  comments$!: Observable<Comment[]>
+  comments!: Comment[];
+  comments$!: Observable<Comment[]>;
 
   ngOnInit(): void {
-    this.commentService.query()
-    this.comments$ = this.commentService.comments$
+    this.commentService.query();
+    this.comments$ = this.commentService.comments$;
   }
 
-  onRemoveComment(commentId:number){
-
+  onRemoveComment(commentId: number): void {
+    this.commentService.remove(commentId)
   }
+
 
 }

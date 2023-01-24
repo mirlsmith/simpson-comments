@@ -73,7 +73,14 @@ export class CommentService {
   }
 
   remove(commentId: number) {
+    console.log('removing comment', commentId);
     const comments = this.commentsDB
+    const replies = this.getReplies(commentId)
+    if (replies.length) replies.forEach( 
+      cmnt => {
+        if (cmnt.deletedAt) return
+        this.remove(cmnt.id)
+      })
     const commentIdx = comments.findIndex(comment => comment.id === commentId)
     comments[commentIdx].deletedAt = new Date()
     this.query()

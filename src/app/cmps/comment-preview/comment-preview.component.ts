@@ -20,8 +20,6 @@ export class CommentPreviewComponent implements OnInit {
   @Input() comment!: Comment
   @Output() onRemove = new EventEmitter<number>()
 
-  
-
   commentOwner$!: Observable<User>
 
   ownerName = ''
@@ -40,7 +38,7 @@ export class CommentPreviewComponent implements OnInit {
   
   onRemoveComment(ev: MouseEvent){
     ev.stopPropagation()
-    this.onRemove.emit(this.comment.id)
+    this.commentService.remove(this.comment.id)
   }
 
   onEditComment(ev: MouseEvent){
