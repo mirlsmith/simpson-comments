@@ -71,7 +71,6 @@ export class CommentService {
   }
 
   remove(commentId: number) {
-    console.log('removing comment', commentId)
     const comments = this.commentsDB
     const replies = this.getReplies(commentId)
     if (replies.length)
