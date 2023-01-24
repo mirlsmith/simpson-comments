@@ -1,6 +1,6 @@
 <div class="add-comment flex">
     <div class="user-img">
-        <img src="/assets/imgs/users/{{selectedUser.id}}.jpg" alt="user-avatar">
+        <img src="assets/imgs/users/{{selectedUser.id}}.jpg" alt="user-avatar">
     </div>
     <form #form="ngForm" class="comment-form flex" (ngSubmit)="onAddComment(form)">
         <textarea [(ngModel)]="text" minlength="1" name="text" placeholder="Please add your comment here"></textarea>
