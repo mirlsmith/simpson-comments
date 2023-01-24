@@ -36,13 +36,4 @@ export class CommentPreviewComponent implements OnInit {
     )
   }
 
-  getDatePipe(date: string): string {
-    if (Date.now() - new Date(date).getTime() < 50000) return 'ss'
-    if (Date.now() - new Date(date).getTime() < 10000) return 'ss'
-    if (Date.now() - new Date(date).getTime() < 3600000) return 'mm'
-    return 'MM/dd/yyyy'
-}
-
-
-
 }

@@ -7,6 +7,9 @@ import { UserPickerComponent } from './cmps/user-picker/user-picker.component';
 import { FormsModule } from '@angular/forms';
 import { CommentPageComponent } from './cmps/comment-page/comment-page.component';
 import { AddCommentComponent } from './cmps/add-comment/add-comment.component';
+import { CommentListComponent } from './cmps/comment-list/comment-list.component';
+import { CommentPreviewComponent } from './cmps/comment-preview/comment-preview.component';
+import { TimeAgoPipe } from './pipes/time-ago.pipe';
 
 
 @NgModule({
@@ -15,6 +18,9 @@ import { AddCommentComponent } from './cmps/add-comment/add-comment.component';
     UserPickerComponent,
     CommentPageComponent,
     AddCommentComponent,
+    CommentListComponent,
+    CommentPreviewComponent,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,

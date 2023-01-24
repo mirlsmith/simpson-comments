@@ -3,6 +3,6 @@ export interface Comment {
     parentCommentId: number | null,
     ownerId: number,
     txt: string,
-    createdAt: Date | string,
+    createdAt: string,
     deletedAt: Date | null
 }
