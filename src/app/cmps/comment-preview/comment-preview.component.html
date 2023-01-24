@@ -1,6 +1,10 @@
-<section class="comment-preview">
-    <h3>{{ownerName}}</h3>
-    <h4>{{comment.createdAt | date:getDatePipe(comment.createdAt)}}</h4>
-    <p>{{comment.txt}}</p>
+<section class="comment-preview flex align-center">
+    <div class="info">
+        <h3>{{ownerName}}</h3>
+        <h4>{{comment.createdAt | timeAgo}}</h4>
+    </div>
+    <div class="text">
+        <p>{{comment.txt}}</p>
+    </div>
 
 </section>
