@@ -15,8 +15,8 @@
             <textarea *ngIf="canEdit" [(ngModel)]="comment.txt">{{comment.txt}}</textarea>
         </div>
         <div class="actions flex column">
-            <button (click)="onRemoveComment($event)">Delete comment</button>
-            <button (click)="onEditComment($event)">{{canEdit? 'Save' : 'Edit'}} comment</button>
+            <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onRemoveComment($event)">Delete comment</button>
+            <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onEditComment($event)">{{canEdit? 'Save' : 'Edit'}} comment</button>
         </div>
     </div>
 

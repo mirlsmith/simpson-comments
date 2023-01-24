@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Comment } from 'src/app/models/comment';
 import { User } from 'src/app/models/user';
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './comment-preview.component.html',
   styleUrls: ['./comment-preview.component.scss']
 })
-export class CommentPreviewComponent implements OnInit {
+export class CommentPreviewComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService:UserService,
@@ -27,6 +27,8 @@ export class CommentPreviewComponent implements OnInit {
   commentReplies: Comment[] = []
   canEdit = false
 
+  userSubscription!: Subscription
+  selectedUser!: User
   
   ngOnInit(): void {
     this.commentOwner$ = this.userService.getById(this.comment.ownerId)
@@ -34,6 +36,7 @@ export class CommentPreviewComponent implements OnInit {
       user => this.ownerName = user.displayName
     )
     this.commentReplies = this.commentService.getReplies(this.comment.id)
+    this.userSubscription = this.userService.selectedUser$.subscribe(user => this.selectedUser = user)
   }
   
   onRemoveComment(ev: MouseEvent){
@@ -49,6 +52,10 @@ export class CommentPreviewComponent implements OnInit {
       )
     }
     this.canEdit = !this.canEdit
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe
   }
 
 }
