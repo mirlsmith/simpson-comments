@@ -6,6 +6,7 @@ import { AppComponent } from './app-root/app.component';
 import { UserPickerComponent } from './cmps/user-picker/user-picker.component';
 import { FormsModule } from '@angular/forms';
 import { CommentPageComponent } from './cmps/comment-page/comment-page.component';
+import { AddCommentComponent } from './cmps/add-comment/add-comment.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { CommentPageComponent } from './cmps/comment-page/comment-page.component
     AppComponent,
     UserPickerComponent,
     CommentPageComponent,
+    AddCommentComponent,
   ],
   imports: [
     BrowserModule,
