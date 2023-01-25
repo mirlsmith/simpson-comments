@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import { faEdit, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Observable, Subscription } from 'rxjs';
 import { Comment } from 'src/app/models/comment';
 import { User } from 'src/app/models/user';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
-
 @Component({
   selector: 'app-comment-preview',
   templateUrl: './comment-preview.component.html',
@@ -34,6 +34,9 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
   commentSubscription!: Subscription
   selectedParent: Comment|null = null
 
+  faTrash = faTrash
+  faEdit = faEdit
+  faSave = faSave
   
   ngOnInit(): void {
     this.commentOwner$ = this.userService.getById(this.comment.ownerId)

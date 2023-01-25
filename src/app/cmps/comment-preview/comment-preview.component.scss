@@ -12,11 +12,27 @@
             margin-right: 10px;
             object-fit: fill;
         }
+        @media (max-width: 800px) {
+            .name-time {
+                display: none;
+            }
+        }
     }
 
     .actions {
         min-width: fit-content;
         gap: 10px;
+        &.mobile {
+            display: none;
+        }
+        @media (max-width: 800px) {
+            &.mobile {
+                display: flex;
+            }
+            &.desktop {
+                display: none;
+            }
+          }
     }
 }
 

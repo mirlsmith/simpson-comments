@@ -5,7 +5,7 @@
             <div>
                 <img src="assets/imgs/users/{{comment.ownerId}}.jpg" alt="">
             </div>
-            <div class="flex column">
+            <div class="name-time flex column">
                 <p>{{ownerName}}</p>
                 <p>{{comment.createdAt | timeAgo}}</p>
             </div>
@@ -14,9 +14,18 @@
             <p *ngIf="!canEdit">{{comment.txt}}</p>
             <textarea *ngIf="canEdit" [(ngModel)]="comment.txt">{{comment.txt}}</textarea>
         </div>
-        <div class="actions flex column">
+        <div class="actions desktop flex column">
             <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onRemoveComment($event)">Delete comment</button>
             <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onEditComment($event)">{{canEdit? 'Save' : 'Edit'}} comment</button>
+        </div>
+        <div class="actions mobile flex column">
+            <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onRemoveComment($event)">
+                <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+            <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onEditComment($event)">
+                <fa-icon *ngIf="!canEdit" [icon]="faEdit"></fa-icon>
+                <fa-icon *ngIf="canEdit" [icon]="faSave"></fa-icon>
+            </button>
         </div>
     </div>
 

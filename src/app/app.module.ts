@@ -10,6 +10,7 @@ import { AddCommentComponent } from './cmps/add-comment/add-comment.component';
 import { CommentListComponent } from './cmps/comment-list/comment-list.component';
 import { CommentPreviewComponent } from './cmps/comment-preview/comment-preview.component';
 import { TimeAgoPipe } from './pipes/time-ago.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { TimeAgoPipe } from './pipes/time-ago.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FontAwesomeModule,
     
   ],
   providers: [],
