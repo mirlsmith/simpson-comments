@@ -1,7 +1,4 @@
-// :host {
-//     display: flex;
-//     justify-content: center;
-// }
+@import "/src/assets/styles/mixins";
 
 .main-layout {
     display: grid;
@@ -12,19 +9,9 @@
         justify-self: center;
     }
     
-
-    // @media screen and (max-width: 1100px) {
-    //     grid-template-columns: minmax(90px, 450px) 600px 320px;
-    // }
-
-    @media screen and (min-width: 700px) {
+    @include for-desktop-layout {
         grid-template-columns: 80px 1fr 80px;
     }
-
-    // @media screen and (max-width: 700px) {
-    //     grid-template-columns: 70px 1fr;
-    //     width: 100%;
-    // }
 }
 
 main {
