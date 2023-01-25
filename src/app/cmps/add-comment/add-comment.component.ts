@@ -1,12 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Comment } from 'src/app/models/comment';
 import { User } from 'src/app/models/user';
 import { CommentService } from 'src/app/services/comment.service';
 import { UserService } from 'src/app/services/user.service';
 
-// declare var require: any
 @Component({
   selector: 'app-add-comment',
   templateUrl: './add-comment.component.html',
@@ -34,7 +33,6 @@ export class AddCommentComponent implements OnInit, OnDestroy {
       (user) => this.selectedUser = user
     )
     this.commentSubscription = this.commentService.selectedParentComment$.subscribe(cmnt => this.selectedParent = cmnt )
-    this.newComment = this.commentService.getEmptyComment()
   }  
 
   addCommentClick(ev:MouseEvent){ //so that we dont clear the selected parent comment when clicking on textarea to add comment
@@ -43,18 +41,27 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   onAddComment(form: NgForm) {
     if (!this.text) return
-    this.createNewComment()
-    this.commentService.save(this.newComment)
+    const commentToAdd = this.createNewComment()
+    this.commentService.save({...commentToAdd})
     form.reset()
     if (this.selectedParent) window.location.reload() //this is a workaround solution because reply comments were only showing up after refresh
   }
 
   createNewComment(): Comment{
-    this.newComment = this.commentService.getEmptyComment()
-    this.newComment.txt = this.text
-    this.newComment.parentCommentId = this.selectedParent?.id || null
-    this.newComment.ownerId = this.selectedUser.id
-    return this.newComment
+    let newComment = this.commentService.getEmptyComment()
+    newComment.txt = this.text
+    newComment.parentCommentId = this.selectedParent?.id || null
+    newComment.ownerId = this.selectedUser.id
+    return {...newComment}
+  }
+
+  getSelectedParentOwnerName(){
+    if (!this.selectedParent) return
+    const selectedParentOwner = this.userService.getById(this.selectedParent.ownerId)
+      .pipe(
+        map(({displayName})=> displayName)
+      )
+    return selectedParentOwner
   }
 
   ngOnDestroy(): void {

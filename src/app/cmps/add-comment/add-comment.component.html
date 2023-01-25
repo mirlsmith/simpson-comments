@@ -1,10 +1,12 @@
-<div (click)="addCommentClick($event)" class="add-comment flex">
-    <div>{{selectedParent ? 'Responding to' : 'New comment'  }} <span *ngIf="selectedParent">{{selectedParent.ownerId}}</span></div>
-    <div class="user-img">
-        <img src="assets/imgs/users/{{selectedUser.id}}.jpg" alt="user-avatar">
+<div (click)="addCommentClick($event)" class="add-comment flex  space-between">
+    <div>{{selectedParent ? 'Responding to' : 'New comment'  }} <span *ngIf="selectedParent">{{getSelectedParentOwnerName() | async}}</span></div>
+    <div class="flex gp-5">
+        <div class="user-img">
+            <img src="assets/imgs/users/{{selectedUser.id}}.jpg" alt="user-avatar">
+        </div>
+        <form #form="ngForm" class="comment-form flex gp-5" (ngSubmit)="onAddComment(form)">
+            <textarea [(ngModel)]="text" minlength="1" name="text" placeholder="Please add your comment here"></textarea>
+            <button class="add-message-action">Submit</button>
+        </form>
     </div>
-    <form #form="ngForm" class="comment-form flex" (ngSubmit)="onAddComment(form)">
-        <textarea [(ngModel)]="text" minlength="1" name="text" placeholder="Please add your comment here"></textarea>
-        <button class="add-message-action">Submit</button>
-    </form>
 </div>

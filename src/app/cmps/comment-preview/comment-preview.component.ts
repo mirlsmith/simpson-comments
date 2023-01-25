@@ -59,7 +59,6 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
     }
     this.canEdit = !this.canEdit
   }
-
   
   onClickComment(commentId:number){
     event?.stopPropagation()
