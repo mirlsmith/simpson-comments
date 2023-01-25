@@ -28,9 +28,6 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     private commentService: CommentService,
     private userService: UserService
   ){}
-
-  // @Input() reply = false
-  // @Input() parentComment : Comment | null = null
   
   ngOnInit(): void {
     this.userSubscription = this.userService.selectedUser$.subscribe(
@@ -40,15 +37,13 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     this.newComment = this.commentService.getEmptyComment()
   }  
 
-  addCommentClick(ev:MouseEvent){
+  addCommentClick(ev:MouseEvent){ //so that we dont clear the selected parent comment when clicking on textarea to add comment
     ev.stopPropagation()
   }
 
   onAddComment(form: NgForm) {
-    // this.reply ? this.commentService.saveAsReply(msg, this.parentMsg) :  this.commentService.save(msg)
     console.log('text', this.text, 'parent msg id', this.selectedParent?.id||null);
     if (!this.text) return
-    // this.newComment.id = 0
     this.newComment.txt = this.text
     this.newComment.parentCommentId = this.selectedParent?.id || null
     this.newComment.ownerId = this.selectedUser.id
