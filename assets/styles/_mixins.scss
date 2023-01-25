@@ -1,0 +1,15 @@
+//for media-queries
+
+$mobile-bp: 600px;
+
+@mixin for-mobile-layout {
+    @media (max-width: $mobile-bp) {
+      @content;
+    }
+  }
+  
+  @mixin for-desktop-layout {
+    @media (min-width: $mobile-bp) {
+      @content;
+    }
+  }
