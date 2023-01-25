@@ -42,13 +42,19 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   }
 
   onAddComment(form: NgForm) {
-    console.log('text', this.text, 'parent msg id', this.selectedParent?.id||null);
     if (!this.text) return
+    this.createNewComment()
+    this.commentService.save(this.newComment)
+    form.reset()
+    if (this.selectedParent) window.location.reload() //this is a workaround solution because reply comments were only showing up after refresh
+  }
+
+  createNewComment(): Comment{
+    this.newComment = this.commentService.getEmptyComment()
     this.newComment.txt = this.text
     this.newComment.parentCommentId = this.selectedParent?.id || null
     this.newComment.ownerId = this.selectedUser.id
-    this.commentService.save(this.newComment)
-    form.reset()
+    return this.newComment
   }
 
   ngOnDestroy(): void {

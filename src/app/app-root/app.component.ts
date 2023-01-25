@@ -12,7 +12,6 @@ export class AppComponent {
   constructor(private commentService:CommentService){}
 
   clickedOnApp() {
-    console.log('clicked on app');
     this.commentService.clearSelectedParentComment()
   }
 }

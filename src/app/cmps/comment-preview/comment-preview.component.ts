@@ -60,13 +60,9 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
     this.canEdit = !this.canEdit
   }
 
-  onClickOutsideComment(){
-    console.log('clicked outside comment');
-  }
   
   onClickComment(commentId:number){
     event?.stopPropagation()
-    console.log('clicked on comment', commentId);
     this.commentService.setSelectedParentComment(commentId)
   }
 
