@@ -19,10 +19,10 @@
             <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onEditComment($event)">{{canEdit? 'Save' : 'Edit'}} comment</button>
         </div>
         <div class="actions mobile flex column">
-            <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onRemoveComment($event)">
+            <button class="icon-btn" [disabled]="comment.ownerId !== selectedUser.id" (click)="onRemoveComment($event)">
                 <fa-icon [icon]="faTrash"></fa-icon>
             </button>
-            <button [disabled]="comment.ownerId !== selectedUser.id" (click)="onEditComment($event)">
+            <button class="icon-btn" [disabled]="comment.ownerId !== selectedUser.id" (click)="onEditComment($event)">
                 <fa-icon *ngIf="!canEdit" [icon]="faEdit"></fa-icon>
                 <fa-icon *ngIf="canEdit" [icon]="faSave"></fa-icon>
             </button>
