@@ -25,7 +25,7 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
 
   ownerName = ''
   createdAt = ''
-  commentReplies: Comment[] = []
+  commentReplies$!: Observable<Comment[]>
   canEdit = false
 
   userSubscription!: Subscription
@@ -40,7 +40,7 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
     this.commentOwner$.subscribe(
       user => this.ownerName = user.displayName
     )
-    this.commentReplies = this.commentService.getReplies(this.comment.id)
+    this.commentReplies$ = this.commentService.getReplies(this.comment.id)
     this.userSubscription = this.userService.selectedUser$.subscribe(user => this.selectedUser = user)
     this.commentSubscription = this.commentService.selectedParentComment$.subscribe(cmnt => this.selectedParent = cmnt )
   }
@@ -71,7 +71,8 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.userSubscription.unsubscribe
+    this.userSubscription.unsubscribe()
+    this.commentSubscription.unsubscribe()
   }
 
 }

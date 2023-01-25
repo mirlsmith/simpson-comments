@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div *ngFor="let comment of commentReplies" class="comment-replies">
+    <div *ngFor="let comment of commentReplies$ | async" class="comment-replies">
         <app-comment-preview [comment]="comment" ></app-comment-preview>
     </div>
 </section>

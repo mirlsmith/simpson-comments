@@ -57,7 +57,7 @@ export class CommentService {
   private _add(comment: Comment) {
     comment.id = this.utilService.makeId(5)
     this.commentsDB.push(comment)
-    this._comments$.next(this.commentsDB)
+    this._comments$.next(JSON.parse(JSON.stringify(this.commentsDB)))
     this.query()
     this.utilService.saveToStorage(STORAGE_KEY, this.commentsDB)
     return of(comment)
@@ -83,9 +83,9 @@ export class CommentService {
   }
 
   getReplies(commentId: number) {
-    return this.commentsDB.filter(
+    return of (this.commentsDB.filter(
       (comment) => comment.parentCommentId === commentId
-    )
+    ))
   }
 
   getById(commentId: number): Observable<Comment> {
@@ -96,11 +96,16 @@ export class CommentService {
   remove(commentId: number) {
     const comments = this.commentsDB
     const replies = this.getReplies(commentId)
-    if (replies.length)
-      replies.forEach((cmnt) => {
-        if (cmnt.deletedAt) return
-        this.remove(cmnt.id)
-      })
+    replies.subscribe(
+      res => {
+        if (res.length)
+        res.forEach((cmnt) => {
+          if (cmnt.deletedAt) return
+          this.remove(cmnt.id)
+        })
+      }
+    )
+   
     const commentIdx = comments.findIndex(
       (comment) => comment.id === commentId
     )
