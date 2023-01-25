@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Comment } from 'src/app/models/comment';
 import { User } from 'src/app/models/user';
@@ -14,11 +14,12 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService:UserService,
-    private commentService: CommentService
+    private commentService: CommentService,
   ){}
 
   @Input() comment!: Comment
   @Output() onRemove = new EventEmitter<number>()
+
 
   commentOwner$!: Observable<User>
 
@@ -29,6 +30,10 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
 
   userSubscription!: Subscription
   selectedUser!: User
+
+  commentSubscription!: Subscription
+  selectedParent: Comment|null = null
+
   
   ngOnInit(): void {
     this.commentOwner$ = this.userService.getById(this.comment.ownerId)
@@ -37,6 +42,7 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
     )
     this.commentReplies = this.commentService.getReplies(this.comment.id)
     this.userSubscription = this.userService.selectedUser$.subscribe(user => this.selectedUser = user)
+    this.commentSubscription = this.commentService.selectedParentComment$.subscribe(cmnt => this.selectedParent = cmnt )
   }
   
   onRemoveComment(ev: MouseEvent){
@@ -52,6 +58,16 @@ export class CommentPreviewComponent implements OnInit, OnDestroy {
       )
     }
     this.canEdit = !this.canEdit
+  }
+
+  onClickOutsideComment(){
+    console.log('clicked outside comment');
+  }
+  
+  onClickComment(commentId:number){
+    event?.stopPropagation()
+    console.log('clicked on comment', commentId);
+    this.commentService.setSelectedParentComment(commentId)
   }
 
   ngOnDestroy(): void {

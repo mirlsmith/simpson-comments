@@ -1,6 +1,6 @@
 <section>
-    <!-- <div *ngIf="!comment.parentCommentId" class="comment-preview flex align-center"> -->
-    <div *ngIf="!comment.deletedAt" class="comment-preview flex align-center space-between">
+    <!-- <div clickOutside (clickedOutside)="onClickOutsideComment()" (click)="onClickComment(comment.id)" *ngIf="!comment.deletedAt" class="comment-preview flex align-center space-between"> -->
+    <div (click)="onClickComment(comment.id)" *ngIf="!comment.deletedAt" class="comment-preview flex align-center space-between">
         <div class="info flex align-center">
             <div>
                 <img src="assets/imgs/users/{{comment.ownerId}}.jpg" alt="">

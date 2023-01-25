@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'simpson-comments';
+
+  constructor(private commentService:CommentService){}
+
+  clickedOnApp() {
+    console.log('clicked on app');
+    this.commentService.clearSelectedParentComment()
+  }
 }

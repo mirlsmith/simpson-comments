@@ -1,4 +1,5 @@
-<div class="add-comment flex">
+<div (click)="addCommentClick($event)" class="add-comment flex">
+    <div>{{selectedParent ? 'Responding to' : 'New comment'  }} <span *ngIf="selectedParent">{{selectedParent.ownerId}}</span></div>
     <div class="user-img">
         <img src="assets/imgs/users/{{selectedUser.id}}.jpg" alt="user-avatar">
     </div>

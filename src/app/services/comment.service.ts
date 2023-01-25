@@ -14,6 +14,9 @@ export class CommentService {
   private _comments$ = new BehaviorSubject<Comment[]>([])
   public comments$ = this._comments$.asObservable()
 
+  private _selectedParentComment$ = new BehaviorSubject<Comment|null>(null)
+  public selectedParentComment$ = this._selectedParentComment$.asObservable()
+
   private commentsDB: Comment[] = this.loadComments()
 
   query() {
@@ -32,9 +35,29 @@ export class CommentService {
     return comment.id ? this._edit(comment) : this._add(comment)
   }
 
+  get selectedParentComment() {
+    return this._selectedParentComment$.value
+  }
+
+  setSelectedParentComment(commentId:number) {
+    const cmnt = this.commentsDB.find(comment => comment.id === commentId)
+    if (cmnt) {
+      this._selectedParentComment$.next(cmnt)
+      return of(cmnt)
+    }
+    return of()
+  }
+
+  clearSelectedParentComment(){
+    this._selectedParentComment$.next(null)
+    return of()
+  }
+
+
   private _add(comment: Comment) {
     comment.id = this.utilService.makeId(5)
     this.commentsDB.push(comment)
+    this._comments$.next(this.commentsDB)
     this.query()
     this.utilService.saveToStorage(STORAGE_KEY, this.commentsDB)
     return of(comment)
